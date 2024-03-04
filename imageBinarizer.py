@@ -6,9 +6,9 @@ from os import remove, path, getcwd
 from pngFileLister import hiddenList, subDirectory
 
 try:
-    with open(hiddenList, "r") as file:
+    with open(hiddenList, "r") as file: # Opens the temporary list which was created by pngFileLister.py
         for lineNumber, line in enumerate(file, start=1):
-            print(f"Line {lineNumber}: {line.strip()}")
+            print(f"Line {lineNumber}: {line.strip()}") # Prints the lines to the prompt
 
             img = cv2.imread(f"{line.strip()}", 0)
             imgCanny = cv2.Canny(img, 60, 60)  # Adjustable gradient values which allows to calibrate the edge detection.
@@ -18,7 +18,7 @@ try:
             resized = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
 
             filename = f"{line.strip()}"
-            cv2.imwrite(path.join(getcwd() + "\\" + subDirectory, filename), imgCanny)
+            cv2.imwrite(path.join(getcwd() + "\\" + subDirectory, filename), imgCanny) # Saves the binarized pictures to the subdirectory which was created by pngFileLister.py
 except FileNotFoundError:
     print(f"File not found: {hiddenList}")
 except Exception as e:
